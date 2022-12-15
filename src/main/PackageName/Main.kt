@@ -105,10 +105,10 @@ fun feeRatio(taxes: String, money: Int): Double {
  */
 fun taxesFirst(table: Map<String, Int>, text: String): Collection<Any> {
     val input = text.split("\n")
-    println(input)
+    //println(input)
     val ans = mutableMapOf<String, Int>()
     for (line in input) {
-        println(line)
+        //println(line)
         if (!line.matches(Regex("""([A-яA-z]\s?)+\s-\s([A-яA-z]\s?)+\s-\s\d+$"""))) {
             throw NumberFormatException()
         }
