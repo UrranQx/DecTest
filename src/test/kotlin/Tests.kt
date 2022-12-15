@@ -21,9 +21,13 @@ class Tests {
             delta = 1e-5)
 
 
-
         assertThrows(IllegalArgumentException::class.java) {
-
+            feeRatio(
+                "20000 = 0%, 400000 = 5%, 60000 = 10, other = 25%",
+                100000
+            )
+        }
+        assertThrows(IllegalArgumentException::class.java) {
             feeRatio(
                 "20_000% = 0%, 40_000$ = 5%, 60_000$ = 10%, other = 25%",
                 100000

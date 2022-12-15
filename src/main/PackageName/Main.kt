@@ -80,6 +80,7 @@ fun feeRatio(taxes: String, money: Int): Double {
             break //без брейка сработает на след итерации if т.к там ласт число << пре ласта (я сам так сделал)
         }
     }
-    println(ans)
+    //println(ans)
+    //return "${ans*100/money}"
     return ans.toDouble() * 100 / money
 }
