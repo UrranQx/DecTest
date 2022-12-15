@@ -2,7 +2,6 @@ package pName
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import java.lang.Math.ulp
 import org.junit.jupiter.api.Assertions.assertThrows
 import kotlin.math.abs
 
@@ -15,7 +14,8 @@ class Tests {
 
     @Test
     fun feeRatio() {
-        assertEquals(13.0, feeRatio("20000$ = 0%, 40000$ = 5%, 60000$ = 10%, other = 25%", 100000))
+        assertApproxEquals(13.0, feeRatio("20000$ = 0%, 40000$ = 5%, 60000$ = 10%, other = 25%", 100000),
+            delta = 1e-4)
         assertApproxEquals(3.3333333,
             feeRatio("20000$ = 0%, 40000$ = 5%, 60000$ = 10%, other = 25%", 45000),
             delta = 1e-5)
