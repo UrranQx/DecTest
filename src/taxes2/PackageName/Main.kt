@@ -1,6 +1,9 @@
 @file:Suppress("UNUSED_PARAMETER", "ConvertCallChainIntoSequence")
 
 package pName
+
+import java.lang.NumberFormatException
+
 //Налоги 2
 /**
  * Во входной строке `taxes` содержится информация о прогрессивном
@@ -83,4 +86,51 @@ fun feeRatio(taxes: String, money: Int): Double {
     //println(ans)
     //return "${ans*100/money}"
     return ans.toDouble() * 100 / money
+}
+
+/**
+ * задается таблица с процентами на налог:
+ * map = [Банковское дело = 4, Горнодобывающая промышленность = 15, Образование = 10]
+ * также задается строка с предприятиями в формате
+ * Название - отрасль - прибль
+ * Поликек - Образование - 10000
+ * ООО Горняк - Горнодобывающая промышленность - 1000000000
+ * Бебра - Торговля - 5000
+ * Для неверного формата вывести ошибку NumberFormatException()
+ * Для каждого предприятия найти налог, если он не задан в таблице - default = 13%
+ * Вывести список предприятий отсортированный по налогу...
+ * название фунции и тесты придумать самостоятельно
+ * Collection<Any> поменять на тот тип, который удобнее или че то такое
+ *
+ */
+fun taxesFirst(table: Map<String, Int>, text: String): Collection<Any> {
+    val input = text.split("\n")
+    println(input)
+    val ans = mutableMapOf<String, Int>()
+    for (line in input) {
+        println(line)
+        if (!line.matches(Regex("""([A-яA-z]\s?)+\s-\s([A-яA-z]\s?)+\s-\s\d+$"""))) {
+            throw NumberFormatException()
+        }
+        val factory = line.split(" - ")
+        val name = factory[0]
+        val sphere = factory[1]
+        val revenue = factory[2].toInt()
+        ans[name] = revenue * (table[sphere] ?: 13) / 100
+
+
+    }
+    val out = mutableListOf<String>()
+    val tempNames = ans.keys.toMutableSet()
+    val tempFins = ans.values.toList().sorted()
+    for (i in tempFins) {
+        for (key in tempNames) {
+            if (ans[key] == i) {
+                out.add(key)
+                ans.remove(key, i)
+            }
+        }
+
+    }
+    return out.reversed()
 }
