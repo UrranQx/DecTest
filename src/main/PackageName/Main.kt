@@ -173,7 +173,7 @@ fun taxesFirst(table: Map<String, Int>, text: String): Collection<Any> {
  * подтверждающие её работоспособность.
  */
 fun zoo(movers: List<String>, pets: List<String>, limit: Int): Collection<Any> {
-    val ansList = mutableSetOf<String>()
+    val ansSet = mutableSetOf<String>()
     val neededPets = pets.toSet()
     for (line in movers) {
         if (!line.matches(Regex("""([А-яA-zёЁ]+):\s((([А-яA-z]+)\s-\s\d+)(, )?)+""")))
@@ -186,17 +186,17 @@ fun zoo(movers: List<String>, pets: List<String>, limit: Int): Collection<Any> {
             val secondHalf = pair.split("-")
             val species = secondHalf[0].trim()
             val price = secondHalf[1].trim().toInt()
-            if (species in neededPets){
+            if (species in neededPets) {
                 totalPerCompany += price
                 c++
             }
 
         }
-        if(c!=neededPets.size) continue
-        if (totalPerCompany in 1..limit) ansList.add(companyName)
+        if (c != neededPets.size) continue
+        if (totalPerCompany in 1..limit) ansSet.add(companyName)
 
     }
-    return ansList
+    return ansSet
 }
 
 val input = listOf(
