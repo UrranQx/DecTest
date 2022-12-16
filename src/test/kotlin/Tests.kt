@@ -52,6 +52,30 @@ class Tests {
             )
         )
 
+
+    }
+    val input = listOf(
+        "SuperCats: кот - 100000",
+        "FastAndCheap: кот - 25000, собака - 30000, шиншилла - 5000",
+        "Lux: кот - 1000000, собака - 1000000, крыса - 1000000, корова - 1000000, бегемот - 1000000"
+    )
+    val pets1 = listOf("кот", "собака")
+    val pets2 = listOf("кот")
+    val pets3 = listOf("бегемот")
+    val mn1 = 20000000
+    val mn2 = 25000
+    val mn3 = 500000
+    @Test
+    fun zoo(){
+        assertEquals(
+            setOf("FastAndCheap", "Lux"),zoo(input,pets1,mn1)
+            )
+        assertEquals(
+            setOf("FastAndCheap"),zoo(input,pets2,mn2)
+        )
+        assertEquals(
+            setOf<String>(),zoo(input,pets3,mn3)
+        )
     }
 
 }

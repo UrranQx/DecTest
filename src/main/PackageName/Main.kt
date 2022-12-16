@@ -134,3 +134,84 @@ fun taxesFirst(table: Map<String, Int>, text: String): Collection<Any> {
     }
     return out.reversed()
 }
+//Перевозка домашних животных
+
+/**
+ * Во входном списке `movers` перечислены компании, которые занимаются
+ * перевозкой домашних животных. Каждая компания описана в следующем
+ * формате:
+ *
+ * имя компании: вид животного - стоимость,
+ *
+ * Пример входных данных:
+ * SuperCats: кот - 100000,
+ * FastAndCheap: кот - 25000, собака - 30000, шиншилла - 5000,
+ * Lux: кот - 1000000, собака - 1000000, крыса - 1000000,
+ * корова - 1000000, бегемот - 1000000,
+ *
+ * Также на вход вам подается еще два параметра: список домашних
+ * животных, которых необходимо перевезти, `pets` и максимальная
+ * сумма, которую хозяева готовы потратить на перевозку, `limit`.
+ *
+ * Вам необходимо имена всех компаний, которые могут перевезти
+ * указанных животных в пределах заданной суммы.
+ *
+ * Например, для указанного списка компаний и параметров
+ * - `pets=["кот", "собака"] money = 20000000` вернуть ["Lux", "FastAndCheap"]
+ * - `pet=["кот"] money = 25000` вернуть ["FastAndCheap"]
+ * - `pet=["бегемот"] money = 500000` вернуть []
+ *
+ * При нарушении формата входных данных следует выбросить
+ * IllegalArgumentException.
+ *
+ * Имя функции и тип результата функции предложить самостоятельно;
+ * в задании указан тип Collection<Any>, то есть коллекция объектов
+ * произвольного типа, можно (и нужно) изменить как вид коллекции,
+ * так и тип её элементов.
+ *
+ * Кроме функции, следует написать тесты,
+ * подтверждающие её работоспособность.
+ */
+fun zoo(movers: List<String>, pets: List<String>, limit: Int): Collection<Any> {
+    val ansList = mutableSetOf<String>()
+    val neededPets = pets.toSet()
+    for (line in movers) {
+        if (!line.matches(Regex("""([А-яA-zёЁ]+):\s((([А-яA-z]+)\s-\s\d+)(, )?)+""")))
+            throw java.lang.IllegalArgumentException()
+        var c = 0
+        var totalPerCompany = 0
+        val struck = line.split(":")
+        val companyName = struck[0]
+        for (pair in struck[1].split(", ")) {
+            val secondHalf = pair.split("-")
+            val species = secondHalf[0].trim()
+            val price = secondHalf[1].trim().toInt()
+            if (species in neededPets){
+                totalPerCompany += price
+                c++
+            }
+
+        }
+        if(c!=neededPets.size) continue
+        if (totalPerCompany in 1..limit) ansList.add(companyName)
+
+    }
+    return ansList
+}
+
+val input = listOf(
+    "SuperCats: кот - 100000",
+    "FastAndCheap: кот - 25000, собака - 30000, шиншилла - 5000",
+    "Lux: кот - 1000000, собака - 1000000, крыса - 1000000, корова - 1000000, бегемот - 1000000"
+)
+val pets1 = listOf("кот", "собака")
+val pets2 = listOf("кот")
+val pets3 = listOf("бегемот")
+val mn1 = 20000000
+val mn2 = 25000
+val mn3 = 500000
+fun main() {
+    println(zoo(input, pets1, mn1))
+    println(zoo(input, pets2, mn2))
+    println(zoo(input, pets3, mn3))
+}
