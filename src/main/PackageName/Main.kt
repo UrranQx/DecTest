@@ -124,10 +124,12 @@ fun taxesFirst(table: Map<String, Int>, text: String): Collection<Any> {
 
 
     }
-    val out = mutableListOf<String>()
+    /*val out = mutableListOf<String>()
     val tempNames = ans.keys.toMutableSet()
-    val tempFins = ans.values.toList().sorted()
-    for (i in tempFins) {
+    val tempFins = ans.values.toList().sorted()*/
+    val reversed = ans.entries.associate{(k,v)-> v to k}
+    return reversed.toSortedMap().values.reversed()
+    /*for (i in tempFins) {
         for (key in tempNames) {
             if (ans[key] == i) {
                 out.add(key)
@@ -136,7 +138,7 @@ fun taxesFirst(table: Map<String, Int>, text: String): Collection<Any> {
         }
 
     }
-    return out.reversed()
+    return out.reversed()*/
 }
 //Перевозка домашних животных
 
@@ -187,9 +189,9 @@ fun zoo(movers: List<String>, pets: List<String>, limit: Int): Collection<Any> {
         val struck = line.split(":")
         val companyName = struck[0]
         for (pair in struck[1].split(", ")) {
-            val secondHalf = pair.split("-")
+            val secondHalf = pair.split(" - ")
             val species = secondHalf[0].trim()
-            val price = secondHalf[1].trim().toInt()
+            val price = secondHalf[1].toInt()
             if (species in neededPets) {
                 totalPerCompany += price
                 c++
