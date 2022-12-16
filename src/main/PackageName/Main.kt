@@ -213,9 +213,9 @@ val input = listOf(
 val pets1 = listOf("кот", "собака")
 val pets2 = listOf("кот")
 val pets3 = listOf("бегемот")
-val mn1 = 20000000
-val mn2 = 25000
-val mn3 = 500000
+const val mn1 = 20000000
+const val mn2 = 25000
+const val mn3 = 500000
 fun main() {
     println(zoo(input, pets1, mn1))
     println(zoo(input, pets2, mn2))
